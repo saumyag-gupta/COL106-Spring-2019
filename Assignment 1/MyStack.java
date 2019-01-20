@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class MyStack<E>{
 	
@@ -7,7 +8,7 @@ public class MyStack<E>{
 		list.insert(item);
 	}
 	
-	public E pop(){
+	public E pop() throws EmptyStackException{
 		return list.delete();
 	} 
 	
@@ -26,9 +27,9 @@ public class MyStack<E>{
 
 class node<E>{
 	E data;
-	node next;
+	node<E> next;
 	
-	node(E Data,node Next){
+	node(E Data,node<E> Next){
 		data = Data;
 		next = Next;
 	}
@@ -42,7 +43,7 @@ class LL<E>{
 	
 	node<E> head;
 	
-	LL(node head){
+	LL(node<E> head){
 		this.head = head;
 	}
 	
@@ -55,9 +56,9 @@ class LL<E>{
 		this.head = curr;
 	}
 	
-	E delete(){
+	E delete() throws EmptyStackException{
 		if(this.head == null){
-			return null;
+			throw new EmptyStackException();
 		}
 		else{
 			E ret = head.data;
@@ -67,7 +68,7 @@ class LL<E>{
 	}
 	
 	void traverse(){
-		node ptr = head;
+		node<E> ptr = head;
 		while(ptr != null){
 			System.out.print((ptr.data).toString()+" -> ");
 			ptr=ptr.next;

@@ -1,12 +1,17 @@
+import java.util.*;
 
 public class GeneralizedTowerOfHanoi{
 	
-	public static void gtoh_with_recursion(int num_disks, int start_pos, int[] final_positions){
+	public static void gtoh_with_recursion(int num_disks, int start_pos, int r, int b){
+		int end_pos;
+		if(num_disks % 2 == 0)
+			end_pos = r;
+		else
+			end_pos = b;
 		
-		int end_pos = final_positions[num_disks-1];
 		if(start_pos == end_pos){
 			if(num_disks > 1)
-				gtoh_with_recursion(num_disks-1,start_pos,final_positions);
+				gtoh_with_recursion(num_disks-1,start_pos,r,b);
 			else return;
 		}	
 		else if(num_disks == 1){
@@ -16,11 +21,11 @@ public class GeneralizedTowerOfHanoi{
 			int extra_pos = TowerOfHanoi.remain_pole(start_pos,end_pos);
 			TowerOfHanoi.toh_with_recursion(num_disks-1,start_pos,extra_pos);
 			TowerOfHanoi.toh_with_recursion(1,start_pos,end_pos);
-			gtoh_with_recursion(num_disks-1,extra_pos,final_positions);
+			gtoh_with_recursion(num_disks-1,extra_pos,r,b);
 		}
 	}
 	
-	public static void gtoh_without_recursion(int num_disks, int start_pos, int[] final_positions){
+	public static void gtoh_without_recursion(int num_disks, int start_pos,  int r, int b){
 		
 		MyStack<TowerOfHanoi.execute> call = new MyStack<TowerOfHanoi.execute>();
 		
@@ -28,7 +33,11 @@ public class GeneralizedTowerOfHanoi{
 		
 		while(num_disks > 0){
 		
-			end_pos = final_positions[num_disks-1];
+			if(num_disks % 2 == 0)
+				end_pos = r;
+			else
+				end_pos = b;
+		
 			if(start_pos == end_pos){
 				num_disks--;
 				continue;
