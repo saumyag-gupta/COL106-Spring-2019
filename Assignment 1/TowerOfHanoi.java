@@ -2,6 +2,7 @@ import java.util.*;
 
 public class TowerOfHanoi{
 	
+	// This function calculates the auxillary pole
 	static int remain_pole(int start_pos,int end_pos){
 		return (6-start_pos-end_pos);
 	}
@@ -13,7 +14,7 @@ public class TowerOfHanoi{
 		}
 		
 		if(num_disks == 1){
-			System.out.println(String.valueOf(start_pos)+" -> "+String.valueOf(end_pos));
+			System.out.println(String.valueOf(start_pos)+"  "+String.valueOf(end_pos));
 		}
 		else{
 			int extra_pos = remain_pole(start_pos,end_pos);
@@ -22,17 +23,11 @@ public class TowerOfHanoi{
 			toh_with_recursion(num_disks-1,extra_pos,end_pos);
 		}
 	}
-	
-	public static class execute{
+	//This class is used to simulate a function call. Our function call has 3 arguments and so does this class.
+	static class execute{
 		int num,start,end;
 		
 		execute(int num_disks, int start_pos, int end_pos){
-			num = num_disks;
-			start = start_pos;
-			end = end_pos;
-		}
-		
-		void set(int num_disks, int start_pos, int end_pos){
 			num = num_disks;
 			start = start_pos;
 			end = end_pos;
@@ -70,7 +65,7 @@ public class TowerOfHanoi{
 				
 			}
 			else{
-				System.out.println(String.valueOf(start_pos)+" -> "+String.valueOf(end_pos));
+				System.out.println(String.valueOf(start_pos)+" "+String.valueOf(end_pos));
 			}
 		}	
 	}

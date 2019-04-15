@@ -2,6 +2,41 @@ import java.util.*;
 
 public class GeneralizedTowerOfHanoi{
 	
+	// Code that has been taken as it is from TowerOfHanoi.java
+	
+	static int remain_pole(int start_pos,int end_pos){
+		return (6-start_pos-end_pos);
+	}
+	
+	public static void toh_with_recursion(int num_disks, int start_pos, int end_pos){
+		
+		if(start_pos == end_pos){
+			return;
+		}
+		
+		if(num_disks == 1){
+			System.out.println(String.valueOf(start_pos)+" "+String.valueOf(end_pos));
+		}
+		else{
+			int extra_pos = remain_pole(start_pos,end_pos);
+			toh_with_recursion(num_disks-1,start_pos,extra_pos);
+			toh_with_recursion(1,start_pos,end_pos);
+			toh_with_recursion(num_disks-1,extra_pos,end_pos);
+		}
+	}
+	
+	static class execute{
+		int num,start,end;
+		
+		execute(int num_disks, int start_pos, int end_pos){
+			num = num_disks;
+			start = start_pos;
+			end = end_pos;
+		}
+	}
+	
+	// Actual code for GeneralizedTowerOfHanoi
+	
 	public static void gtoh_with_recursion(int num_disks, int start_pos, int r, int b){
 		int end_pos;
 		if(num_disks % 2 == 0)
@@ -15,19 +50,19 @@ public class GeneralizedTowerOfHanoi{
 			else return;
 		}	
 		else if(num_disks == 1){
-			TowerOfHanoi.toh_with_recursion(1,start_pos,end_pos);
+			toh_with_recursion(1,start_pos,end_pos);
 		}
 		else{
-			int extra_pos = TowerOfHanoi.remain_pole(start_pos,end_pos);
-			TowerOfHanoi.toh_with_recursion(num_disks-1,start_pos,extra_pos);
-			TowerOfHanoi.toh_with_recursion(1,start_pos,end_pos);
+			int extra_pos = remain_pole(start_pos,end_pos);
+			toh_with_recursion(num_disks-1,start_pos,extra_pos);
+			toh_with_recursion(1,start_pos,end_pos);
 			gtoh_with_recursion(num_disks-1,extra_pos,r,b);
 		}
 	}
 	
 	public static void gtoh_without_recursion(int num_disks, int start_pos,  int r, int b){
 		
-		MyStack<TowerOfHanoi.execute> call = new MyStack<TowerOfHanoi.execute>();
+		MyStack<execute> call = new MyStack<execute>();
 		
 		int end_pos,extra_pos;
 		
@@ -42,16 +77,15 @@ public class GeneralizedTowerOfHanoi{
 				num_disks--;
 				continue;
 			}
-			extra_pos = TowerOfHanoi.remain_pole(start_pos,end_pos);
+			extra_pos = remain_pole(start_pos,end_pos);
 			
-			TowerOfHanoi.execute statement = new TowerOfHanoi.execute(1,start_pos,end_pos);
+			execute statement = new execute(1,start_pos,end_pos);
 			call.push(statement);
 			
 			if(num_disks>1){
-				statement = new TowerOfHanoi.execute(num_disks-1,start_pos,extra_pos);
+				statement = new execute(num_disks-1,start_pos,extra_pos);
 				call.push(statement);
 			}
-			//System.out.println(num_disks);
 			
 			while(!call.empty()){
 				statement = call.pop();
@@ -59,18 +93,18 @@ public class GeneralizedTowerOfHanoi{
 				int nums = statement.num;
 				start_pos = statement.start;
 				end_pos = statement.end;
-				extra_pos = TowerOfHanoi.remain_pole(start_pos,end_pos);
+				extra_pos = remain_pole(start_pos,end_pos);
 				
 				if(nums != 1){
-					TowerOfHanoi.execute statement3 = new TowerOfHanoi.execute(nums-1,extra_pos,end_pos);
+					execute statement3 = new execute(nums-1,extra_pos,end_pos);
 					call.push(statement3);
-					TowerOfHanoi.execute statement2 = new TowerOfHanoi.execute(1,start_pos,end_pos);
+					execute statement2 = new execute(1,start_pos,end_pos);
 					call.push(statement2);
-					TowerOfHanoi.execute statement1 = new TowerOfHanoi.execute(nums-1,start_pos,extra_pos);
+					execute statement1 = new execute(nums-1,start_pos,extra_pos);
 					call.push(statement1);
 				}
 				else{
-					System.out.println(String.valueOf(start_pos)+" -> "+String.valueOf(end_pos));
+					System.out.println(String.valueOf(start_pos)+" "+String.valueOf(end_pos));
 				}
 			}
 			start_pos = extra_pos;

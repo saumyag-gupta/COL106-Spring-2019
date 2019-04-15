@@ -1,0 +1,5 @@
+Input 1 ends on line 599999
+
+The total number of differences = 0
+The total number of lines in smaller file = 599999
+The total number of lines in larger file = 600002
